@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
-	"strings"
 	"testing"
 
 	"github.com/buildpacks/lifecycle"
@@ -73,7 +72,10 @@ func testInspectImageCommand(t *testing.T, when spec.G, it spec.S) {
 					h.AssertNil(t, command.Execute())
 					h.AssertEq(t,
 						outBuf.String(),
-						`{"remote":null,"local":null}`+"\n")
+						`{
+  "remote": null,
+  "local": null
+}`+"\n")
 				})
 			})
 		})
@@ -282,7 +284,7 @@ func testInspectImageCommand(t *testing.T, when spec.G, it spec.S) {
 						h.AssertNil(t, command.Execute())
 						expectedOutput, err := ioutil.ReadFile(filepath.Join("testdata", "inspect_image_output.json"))
 						h.AssertNil(t, err)
-						h.AssertEq(t, strings.TrimSpace(outBuf.String()), string(expectedOutput))
+						h.AssertEq(t, outBuf.String(), string(expectedOutput))
 					})
 				})
 

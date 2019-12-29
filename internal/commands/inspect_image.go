@@ -66,10 +66,10 @@ func logBOM(remote *pack.ImageInfo, local *pack.ImageInfo, logger logging.Logger
 	if local != nil {
 		localBOM = local.BOM
 	}
-	rawBOM, err := json.Marshal(bom{
+	rawBOM, err := json.MarshalIndent(bom{
 		Remote: remoteBOM,
 		Local:  localBOM,
-	})
+	}, "", "  ")
 	if err != nil {
 		return errors.Wrapf(err, "writing bill of materials")
 	}
